@@ -6,7 +6,7 @@ git clone https://github.com/kwon37xi/ocrmypdf-easyocr-cpu-docker.git
 
 docker build --file Dockerfile.easyocr-cpu --tag ocrmypdf-easyocr .
 
-alias ompe='docker run --rm -i --workdir /data -v "$PWD:/data" ocrmypdf-easyocr'
+alias ompe='docker run --rm -i --user "$(id -u):$(id -g)" --workdir /data -v "$PWD:/data" -e HOME=/data ocrmypdf-easyocr'
 
-ompe -l kor+eng--deskew --clean --optimize 3 /data/<input>.pdf /data/<output.pdf>
+ompe -l kor+eng--deskew --clean --optimize 3 --easyocr-workers <CPU갯수> --easyocr-no-gpu /data/<input>.pdf /data/<output.pdf>
 ```
